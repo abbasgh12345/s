@@ -43,7 +43,7 @@ local function list_all_plugins(only_enabled)
       text = text..nsum..'.'..status..' '..v..' \n'
     end
   end
-  local text = text..'\n\n'..nsum..' plugins installed\n\n'..nact..' plugins enabled\n\n'..nsum-nact..' plugins disabled'..tmp
+  local text = text..'\n'..nsum..' plugins installed\n'..nact..' plugins enabled\n'..nsum-nact..' plugins disabled'..tmp
   return text
 end
 
@@ -68,7 +68,7 @@ local function list_plugins(only_enabled)
      -- text = text..v..'  '..status..'\n'
     end
   end
-  local text = text.."\nAll Plugins Reloaded\n\n"..nact.." Plugins Enabled\n"..nsum.." Plugins Installed\n\n@BeyondTeam"
+  local text = text.."\nAll Plugins Reloaded\n\n"..nact.." Plugins Enabled\n"..nsum.." Plugins Installed"
 return text
 end
 
