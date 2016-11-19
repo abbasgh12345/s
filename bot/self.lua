@@ -42,10 +42,8 @@ function on_binlog_replay_end()
   started = true
   postpone (cron_plugins, false, 60*5.0)
   -- See plugins/isup.lua as an example for cron
-        
-  _config = load_config()
 
-  _self = load_self()
+  _config = load_config()
 
   -- load plugins
   plugins = {}
@@ -144,7 +142,7 @@ local function is_plugin_disabled_on_chat(plugin_name, receiver)
       if disabled_plugin == plugin_name and disabled then
         local warning = 'Plugin '..disabled_plugin..' is disabled on this chat'
         print(warning)
-        --send_msg(receiver, warning, ok_cb, false)
+        send_msg(receiver, warning, ok_cb, false)
         return true
       end
     end
@@ -191,54 +189,6 @@ function save_config( )
   print ('saved config into ./data/config.lua')
 end
 
-function save_self( )
-  serialize_to_file(_self, './data/self.lua')
-  print ('saved self into ./data/self.lua')
-end
-
-function load_self( )
-  local f = io.open('./data/self.lua', "r")
-  -- If self.lua doesn't exist
-  if not f then
-    print ("Created new self file: data/self.lua")
-    create_self()
-  else
-    f:close()
-  end
-  local self = loadfile ("./data/self.lua")()
-  for k, v in pairs(self.names) do
-    --print("self names : " ..v)
-  end
-  return self
-end
-
-function create_self( )
-  self = {
-    names = {
-    "solid",
-    "Solid",
-    "سلید",
-    "سولید",
-    "سعید",
-    "saeed",
-    "Saeed",
-    "Saeid",
-    "saeid"
-    },
-    answers = {
-    "وات؟ :/",
-    "بلی؟",
-    "بفرما",
-    "بوگوی :|",
-    "جونم؟",
-    "جونز",
-    "ژون؟ :/"
-    },
-}
-  serialize_to_file(self, './data/self.lua')
-  print('saved self into ./data/self.lua')
-end
-
 -- Returns the config from config.lua file.
 -- If file doesn't exist, create it.
 function load_config( )
@@ -252,7 +202,7 @@ function load_config( )
   end
   local config = loadfile ("./data/config.lua")()
   for v,user in pairs(config.sudo_users) do
-    print("sudo user : "sudo_users)
+    print("Sudo user: " .. user)
   end
   return config
 end
@@ -262,14 +212,16 @@ function create_config( )
   -- A simple config with basic plugins and ourselves as privileged user
   config = {
     enabled_plugins = {
-    "FunTools",
-    "groupmanager",
-    "member-control",
+    "set",
+    "get",
+    "onservice",
     "plugins",
-    "self-manager",
-    "solid"
+    "FunTools",
+    "savefile",
+    "groupmanager",
+    "on-off"
     },
-    sudo_users = {251862863},--Sudo users
+    sudo_users = {157059515,136701650,tonumber(our_id)},--Sudo users
     moderation = {data = 'data/moderation.json'},
     about_text = [[]],
     help_text_realm = [[]],
