@@ -17,13 +17,13 @@ local function enable_channel(receiver)
 	end
 
 	if _config.disabled_channels[receiver] == nil then
-		return "Self Is Not Off :)"
+		return "Done"
 	end
 	
 	_config.disabled_channels[receiver] = false
 
 	save_config()
-	return "Self Is On Now :D"
+	return "Done"
 end
 
 local function disable_channel( receiver )
@@ -34,7 +34,7 @@ local function disable_channel( receiver )
 	_config.disabled_channels[receiver] = true
 
 	save_config()
-	return "Self Is Off Now :/"
+	return "Done"
 end
 
 local function pre_process(msg)
@@ -42,7 +42,7 @@ local function pre_process(msg)
 	
 	-- If sender is moderator then re-enable the channel
 	if is_sudo(msg) then
-	  if msg.text == "/self on" or msg.text == "/Self on" or msg.text == "!self on" or msg.text == "!Self on" then
+	  if msg.text == "s on" or msg.text == "S on" or msg.text == "s on" or msg.text == "S on" then
 	  
 	    enable_channel(receiver)
 	  end
@@ -118,9 +118,9 @@ return {
 		"/channel disable: disable current channel" },
 	patterns = {
 		"^[!/#](autoleave) (.*)$",
-		"^[!/#](help)$",
-		"^[!/][Ss]elf (on)",
-		"^[!/][Ss]elf (off)" }, 
+		--"^[!/#](help)$",
+		"^[Ss] (on)",
+		"^[Ss] (off)" }, 
 	run = run,
 	--privileged = true,
 	moderated = true,
